@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class PostsList extends Component {
   render() {
@@ -9,10 +11,12 @@ class PostsList extends Component {
           <div className="post-wrapper" key={post._id}>
             <div className="post-header">
               <div className="post-avatar">
-                <img
-                  src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                  alt="user-pic"
-                />
+                <Link to={`/user/${post.user._id}`}>
+                  <img
+                    src="https://cdn-icons.flaticon.com/png/512/2276/premium/2276400.png?token=exp=1661088967~hmac=9b3629cf332aec2654a1811a67a773e7"
+                    alt="user-pic"
+                  />
+                </Link>
                 <div>
                   <span className="post-author">{post.user.name}</span>
                   <span className="post-time">a minute ago</span>
@@ -23,7 +27,7 @@ class PostsList extends Component {
               <div className="post-actions">
                 <div className="post-like">
                   <img
-                    src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                    src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
                     alt="likes-icon"
                   />
                   <span>{post.likes.length}</span>
@@ -31,7 +35,7 @@ class PostsList extends Component {
 
                 <div className="post-comments-icon">
                   <img
-                    src="https://image.flaticon.com/icons/svg/1380/1380338.svg"
+                    src="https://cdn-icons-png.flaticon.com/512/1450/1450338.png"
                     alt="comments-icon"
                   />
                   <span>{post.comments.length}</span>
@@ -59,5 +63,9 @@ class PostsList extends Component {
     );
   }
 }
+
+PostsList.propTypes = {
+  posts: PropTypes.array.isRequired,
+};
 
 export default PostsList;
