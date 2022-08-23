@@ -1,7 +1,7 @@
 # Project Details
 
-Created by :- [http://github.com/prashant744](Prashant Dhote).
-Description:- This is a Social media Website . This Project is a Clone of Quara.
+Created by :- [http://github.com/prashant744] (Prashant Dhote).\
+Description:- This is a Social media Website .This Project is a Clone of Quara.
 
 # Getting Started with Create React App
 
