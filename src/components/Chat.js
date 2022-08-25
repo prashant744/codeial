@@ -11,9 +11,7 @@ class Chat extends Component {
       messages: [], // {content: 'some message', self: true}
       typedMessage: '',
     };
-    this.socket = io.connect('https://54.237.158.65:5000', {
-      transports: ['websocket'],
-    });
+    this.socket = io.connect('http://35.154.204.238:5000');
     this.userEmail = props.user.email;
     // console.log(this.userEmail);
 
