@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { logoutUser } from '../actions/auth';
+import { searchUsers } from '../actions/search';
 
 class Navbar extends React.Component {
   logOut = () => {
@@ -10,8 +11,14 @@ class Navbar extends React.Component {
     this.props.dispatch(logoutUser());
   };
 
+  handleSearch = (e) => {
+    const searchText = e.target.value;
+
+    this.props.dispatch(searchUsers(searchText));
+  };
+
   render() {
-    const { auth } = this.props;
+    const { auth, results } = this.props;
     return (
       <nav className="nav">
         <div className="left-div">
@@ -25,36 +32,35 @@ class Navbar extends React.Component {
         <div className="search-container">
           <img
             className="search-icon"
-            src="https://cdn-icons.flaticon.com/png/512/2801/premium/2801881.png?token=exp=1661088812~hmac=0e478a6a24654257b2ec93178ca87a7e"
+            src="https://cdn-icons-png.flaticon.com/512/54/54481.png"
             alt="search-icon"
           />
-          <input placeholder="Search" />
+          <input placeholder="Search" onChange={this.handleSearch} />
 
-          <div className="search-results">
-            <ul>
-              <li className="search-results-row">
-                <img
-                  src="https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1661088967~hmac=e2b6724862c02b14e49cdc8fd8df6a3e"
-                  alt="user-dp"
-                />
-                <span>John Doe</span>
-              </li>
-              <li className="search-results-row">
-                <img
-                  src="https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1661088967~hmac=e2b6724862c02b14e49cdc8fd8df6a3e"
-                  alt="user-dp"
-                />
-                <span>John Doe</span>
-              </li>
-            </ul>
-          </div>
+          {results.length > 0 && (
+            <div className="search-results">
+              <ul>
+                {results.map((user) => (
+                  <li className="search-results-row" key={user._id}>
+                    <Link to={`/user/${user._id}`}>
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
+                        alt="user-dp"
+                      />
+                      <span>{user.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <div className="right-nav">
           {auth.isLoggedin && (
             <div className="user">
               <Link to="/settings">
                 <img
-                  src="https://cdn-icons.flaticon.com/png/512/2202/premium/2202112.png?token=exp=1661088967~hmac=e2b6724862c02b14e49cdc8fd8df6a3e"
+                  src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
                   alt="user-dp"
                   id="user-dp"
                 />
@@ -89,6 +95,7 @@ class Navbar extends React.Component {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
+    results: state.search.results,
   };
 }
 export default connect(mapStateToProps)(Navbar);
